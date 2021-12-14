@@ -1,1 +1,1 @@
-# simple
+# My sample project
