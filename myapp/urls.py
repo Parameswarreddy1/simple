@@ -6,4 +6,6 @@ urlpatterns = [
     path('',views.home, name="home"),
     path("stf",views.staff, name="staff"),
     path('ach', views.Achievements, name="Achievements"),
-    path('port', views.portal, name="portal")
+    path('port', views.portal, name="portal"),
+
+    ]

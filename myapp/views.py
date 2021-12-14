@@ -13,5 +13,6 @@ def staff(request):
 def Achievements(request):
     return render(request, "achievements.html")
 
+
 def portal(request):
     return render(request, "portal.html")
