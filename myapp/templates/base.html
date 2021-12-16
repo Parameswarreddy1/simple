@@ -68,6 +68,8 @@ body {
   display: block;
 }
 </style>
+  {% block head %}
+  {% endblock %}
 </head>
 <body>
 
@@ -81,8 +83,7 @@ body {
     </button>
     <div class="dropdown-content">
       <a href="{% url 'login1' %}">Staff login</a>
-      <a href="#">Member login</a>
-
+      <a href="{% url 'login2' %}">Member login</a>
     </div>
   </div>
 </div>

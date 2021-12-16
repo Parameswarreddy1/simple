@@ -1,73 +1,90 @@
 {% extends 'base.html' %}
 {% block head %}
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
 
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+</style>
 {% endblock %}
 {% block content %}
 <h2>Staff Information</h2>
 
-<table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%;">
+<table>
   <thead>
   <tr>
-    <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Name</th>
-    <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Position</th>
-    <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Contact</th>
-    <th style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Email</th>
+    <th>Name</th>
+    <th>Position</th>
+    <th>Contact</th>
+    <th>Email</th>
   </tr>
   </thead>
   <tbody>
   <tr>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Ramesh reddy</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Correspondent</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">4954783285</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">rameshreddyasr2005@gmail.com</td>
-  </tr>
-  <tr style="background-color: #dddddd;">
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Gopi</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">principal&Accounts Lecturer</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">4954783745</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">gopiaakula@gmail.com</td>
+    <td>Ramesh reddy</td>
+    <td>Correspondent</td>
+    <td>4954783285</td>
+    <td>rameshreddyasr2005@gmail.com</td>
   </tr>
   <tr>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Bhaskar</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">vice-principal&Telugu</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">8473725743</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">bhaskarkavali@gmail.com</td>
-  </tr>
-  <tr style="background-color: #dddddd;">
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Jayapal</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">English Lecturer</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">6562347343</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">jayapal1988@gmail.com</td>
+    <td>Gopi</td>
+    <td>principal&Accounts Lecturer</td>
+    <td>4954783745</td>
+    <td>gopiaakula@gmail.com</td>
   </tr>
   <tr>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Ayyappa</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Mathematics Lecturer</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">7364747375</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">ayyappakumtala@gmail.com</td>
-  </tr>
-  <tr style="background-color: #dddddd;">
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Purushotham</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Statistics Lecturer</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">8574643739</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">purushothamreddy1992@gmail.com</td>
+    <td>Bhaskar</td>
+    <td>vice-principal&Telugu</td>
+    <td>8473725743</td>
+    <td>bhaskarkavali@gmail.com</td>
   </tr>
   <tr>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Hari Krishna</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Computers Lecturer</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">5323472382</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">harikrishna123@gmail.com</td>
-  </tr>
-  <tr style="background-color: #dddddd;">
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Vasantha</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Chemistry Lecturer</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">7422758438</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">vasanthachilla@gmail.com</td>
+    <td>Jayapal</td>
+    <td>English Lecturer</td>
+    <td>6562347343</td>
+    <td>jayapal1988@gmail.com</td>
   </tr>
   <tr>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Dilli babu</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">Physics Lecturer</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">9843384738</td>
-    <td style="border: 1px solid #dddddd;text-align: left;padding: 8px;">dillibabupotha@gmail.com</td>
+    <td>Ayyappa</td>
+    <td>Mathematics Lecturer</td>
+    <td>7364747375</td>
+    <td>ayyappakumtala@gmail.com</td>
+  </tr>
+  <tr>
+    <td>Purushotham</td>
+    <td>Statistics Lecturer</td>
+    <td>8574643739</td>
+    <td>purushothamreddy1992@gmail.com</td>
+  </tr>
+  <tr>
+    <td>Hari Krishna</td>
+    <td>Computers Lecturer</td>
+    <td>5323472382</td>
+    <td>harikrishna123@gmail.com</td>
+  </tr>
+  <tr>
+    <td>Vasantha</td>
+    <td>Chemistry Lecturer</td>
+    <td>7422758438</td>
+    <td>vasanthachilla@gmail.com</td>
+  </tr>
+  <tr>
+    <td>Dilli babu</td>
+    <td>Physics Lecturer</td>
+    <td>9843384738</td>
+    <td>dillibabupotha@gmail.com</td>
   </tr>
   </tbody>
 </table>
