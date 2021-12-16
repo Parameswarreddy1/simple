@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 
 
 def home(request):
@@ -14,5 +14,5 @@ def Achievements(request):
     return render(request, "achievements.html")
 
 
-def portal(request):
-    return render(request, "portal.html")
+def Login1(request):
+    return render(request, "staff login.html")
