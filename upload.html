@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deep URL Checker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1d2671, #c33764);
+            color: #fff;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .card {
+            background: #ffffff;
+            color: #333;
+            width: 540px;
+            margin: auto;
+            padding: 32px;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        h2 { margin-bottom: 6px; }
+
+        .subtitle {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 22px;
+        }
+
+        button {
+            background: #1d2671;
+            color: #fff;
+            border: none;
+            padding: 11px 30px;
+            font-size: 15px;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-top: 18px;
+        }
+
+        button:hover { background: #c33764; }
+
+        button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        .file-label {
+            display: inline-block;
+            background: #1d2671;
+            color: #fff;
+            padding: 12px 26px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .file-label:hover { background: #c33764; }
+
+        .file-name {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #555;
+            font-style: italic;
+        }
+
+        .info {
+            margin-top: 18px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .count-text {
+            margin-top: 18px;
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+            display: none;
+        }
+
+        .progress-container {
+            background: #ddd;
+            border-radius: 25px;
+            margin-top: 8px;
+            overflow: hidden;
+            height: 26px;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #1d2671, #c33764);
+            transition: width 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .status {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+            margin-top: 25px;
+            font-size: 15px;
+        }
+
+        .download-btn { margin-top: 18px; }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>🚀 Deep URL Checker</h2>
+    <div class="subtitle">
+        Upload Excel → Process URLs → Download Results
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" onsubmit="startProgress()">
+        {% csrf_token %}
+
+        <input type="file" id="fileInput" name="file" hidden required>
+        <label for="fileInput" class="file-label">📂 Choose Excel File</label>
+
+        <div id="fileName" class="file-name">No file chosen</div>
+
+        <button type="submit" id="runBtn" disabled>
+            ▶ Run URL Check
+        </button>
+    </form>
+
+    {% if total_urls %}
+        <div class="info">
+            🔢 Total URLs detected: {{ total_urls }}
+        </div>
+    {% endif %}
+
+    <!-- COUNT -->
+    <div class="count-text" id="countText"></div>
+
+    <!-- PROGRESS -->
+    <div class="progress-container" id="progressBox">
+        <div class="progress-bar" id="progressBar">0%</div>
+    </div>
+
+    <div class="status" id="statusText"></div>
+
+    {% if completed %}
+        <script>
+            window.onload = function () {
+                const total = {{ total_urls|default:0 }};
+                if (total > 0) {
+                    document.getElementById("progressBox").style.display = "block";
+                    document.getElementById("countText").style.display = "block";
+                    document.getElementById("progressBar").style.width = "100%";
+                    document.getElementById("progressBar").innerText = "100%";
+                    document.getElementById("countText").innerText =
+                        `Processing: ${total} / ${total} URLs`;
+                }
+                document.getElementById("statusText").innerText =
+                    "✅ Processing completed";
+            }
+        </script>
+
+        <div class="success">
+            🎉 Processing completed successfully!<br>
+            📁 Output file is ready.
+        </div>
+
+        <div class="download-btn">
+            <a href="{% url 'download_output' %}">
+                <button>⬇ Download Output Excel</button>
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+const fileInput = document.getElementById("fileInput");
+const fileNameDiv = document.getElementById("fileName");
+const runBtn = document.getElementById("runBtn");
+const statusText = document.getElementById("statusText");
+const progressBox = document.getElementById("progressBox");
+const progressBar = document.getElementById("progressBar");
+const countText = document.getElementById("countText");
+
+const TOTAL = {{ total_urls|default:0 }};
+
+fileInput.addEventListener("change", function () {
+    if (this.files.length) {
+        fileNameDiv.innerText = this.files[0].name;
+        runBtn.disabled = false;
+    } else {
+        fileNameDiv.innerText = "No file chosen";
+        runBtn.disabled = true;
+    }
+});
+
+function startProgress() {
+    if (TOTAL <= 0) return;
+
+    progressBox.style.display = "block";
+    countText.style.display = "block";
+    statusText.innerText = "⏳ Processing URLs… Please wait";
+    runBtn.disabled = true;
+
+    let width = 0;
+    let processed = 0;
+
+    const interval = setInterval(() => {
+        if (width >= 95) {
+            clearInterval(interval);
+        } else {
+            width += 2;
+            processed = Math.max(
+                1,
+                Math.floor((width / 100) * TOTAL)
+            );
+
+            progressBar.style.width = width + "%";
+            progressBar.innerText = width + "%";
+            countText.innerText =
+                `Processing: ${processed} / ${TOTAL} URLs`;
+        }
+    }, 500);
+}
+</script>
+
+</body>
+</html>
